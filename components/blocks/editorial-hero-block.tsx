@@ -10,6 +10,7 @@ export interface EditorialHeroBlockProps {
   title: string
   subtitle?: string
   image?: string
+  mobile_image?: string
   overlayWord?: string
   chip?: string
   ctaText?: string
@@ -22,6 +23,7 @@ export function EditorialHeroBlock({
   title,
   subtitle,
   image,
+  mobile_image,
   overlayWord,
   chip,
   ctaText,
@@ -34,6 +36,7 @@ export function EditorialHeroBlock({
     title,
     subtitle,
     image: image || '',
+    mobileImage: mobile_image || '',
     overlayWord,
     chip,
   }

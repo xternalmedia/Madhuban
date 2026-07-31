@@ -171,7 +171,7 @@ export function RoomsListingBlock({
       </section>
 
       <motion.section
-        initial={false}
+        initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.12 }}
         variants={sectionVariants}
@@ -181,7 +181,7 @@ export function RoomsListingBlock({
           <motion.div
             key={activeFilter}
             variants={containerVariants}
-            initial={false}
+            initial="hidden"
             animate="show"
             exit={{
               opacity: 0,

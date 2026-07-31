@@ -1,5 +1,16 @@
 export const editorialEase = [0.22, 1, 0.36, 1] as const
 
+/**
+ * Shared `whileInView` viewport config. The negative bottom margin holds the
+ * reveal back until the element is comfortably inside the fold, so content
+ * never animates while it is still clipped by the viewport edge.
+ */
+export const revealViewport = {
+  once: true,
+  amount: 0.2,
+  margin: '0px 0px -10% 0px',
+} as const
+
 export function createEditorialMotion(
   reduceMotion: boolean | null | undefined,
 ) {

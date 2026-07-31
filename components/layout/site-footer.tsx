@@ -1,20 +1,22 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { Media as Image } from '@/components/shared/media'
+import { motion, useReducedMotion } from 'framer-motion'
 import { Facebook, Instagram, MessageCircle } from 'lucide-react'
 
 import { quickLinks } from '@/lib/site-nav'
 import type { SiteContent } from '@/lib/types'
 
 export function SiteFooter({ siteContent }: { siteContent: SiteContent }) {
+  const reduceMotion = useReducedMotion()
+
   return (
     <motion.footer
-      initial={false}
+      initial={{ opacity: 0, y: reduceMotion ? 0 : 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: reduceMotion ? 0 : 0.45, ease: [0.22, 1, 0.36, 1] }}
       className="bg-primary-dark text-white"
     >
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
@@ -86,8 +88,7 @@ export function SiteFooter({ siteContent }: { siteContent: SiteContent }) {
           <div className="mt-14 flex flex-col gap-4 pt-6 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-sm text-white/75">
               {siteContent.footer?.copyright_text || `© ${new Date().getFullYear()} Madhuban Garden Resort. All rights reserved.`}
-            reserved.
-          </p>
+            </p>
           <div className="flex items-center gap-4 text-white/80">
             <Link href={siteContent.instagram} aria-label="Instagram">
               <Instagram className="size-5" />

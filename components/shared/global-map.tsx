@@ -32,7 +32,7 @@ export function GlobalMap() {
               title="Madhuban Garden Resort location on Google Maps"
               className="absolute inset-0"
             />
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 p-4 sm:p-6">
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 p-4 pb-12 sm:p-6 sm:pb-6">
               <div className="pointer-events-auto max-w-xs rounded-card-inner bg-white/95 p-5 shadow-xl backdrop-blur">
                 <p className="text-xs font-semibold uppercase tracking-label text-primary-deep/70">
                   Resort Location

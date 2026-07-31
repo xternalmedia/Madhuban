@@ -1,6 +1,6 @@
 'use client'
 
-import Image from 'next/image'
+import { Media as Image } from '@/components/shared/media'
 import { motion, useReducedMotion } from 'framer-motion'
 import { MapPin } from 'lucide-react'
 import { SectionHeading } from '@/components/shared/section-heading'
@@ -65,7 +65,7 @@ export function AttractionsBlock({ eyebrow, title, description, items }: Attract
 
   return (
     <motion.section
-      initial={false}
+      initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.2 }}
       variants={sectionVariants}
@@ -99,7 +99,7 @@ export function AttractionsBlock({ eyebrow, title, description, items }: Attract
                           alt={attraction.name}
                           fill
                           sizes="(min-width: 1024px) 24vw, 100vw"
-                          className="object-cover"
+                          className="object-cover contrast-105 saturate-110 sepia-[.10]"
                         />
                       </div>
                       <div className="flex flex-col flex-grow justify-between p-6 sm:p-8">

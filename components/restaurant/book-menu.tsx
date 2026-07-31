@@ -2,7 +2,7 @@
 
 import { type Easing, motion, useReducedMotion } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import Image from 'next/image'
+import { Media as Image } from '@/components/shared/media'
 import { type ReactNode, useEffect, useMemo, useRef, useState } from 'react'
 
 import { Button } from '@/components/ui/button'

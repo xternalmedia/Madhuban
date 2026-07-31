@@ -51,7 +51,7 @@ export function AmenitiesBlock({ items }: AmenitiesBlockProps) {
 
   return (
     <motion.section
-      initial={false}
+      initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.2 }}
       variants={sectionVariants}

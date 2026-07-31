@@ -1,6 +1,6 @@
 'use client'
 
-import Image from 'next/image'
+import { Media as Image } from '@/components/shared/media'
 import Link from 'next/link'
 import { motion, useReducedMotion } from 'framer-motion'
 import { SectionHeading } from '@/components/shared/section-heading'
@@ -76,7 +76,7 @@ export function InstagramFeedBlock({
 
   return (
     <motion.section
-      initial={false}
+      initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.2 }}
       variants={sectionVariants}

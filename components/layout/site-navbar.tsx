@@ -1,10 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
+import { Media as Image } from '@/components/shared/media'
 import { usePathname } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import React, { useEffect, useRef, useState } from 'react'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import {
   Menu,
   MessageCircle,
@@ -12,7 +12,8 @@ import {
   Facebook,
   X,
   ChevronDown,
-  ArrowRight
+  ArrowRight,
+  User
 } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
@@ -22,17 +23,34 @@ import type { SiteContent } from '@/lib/types'
 
 export function SiteNavbar({ siteContent }: { siteContent: SiteContent }) {
   const pathname = usePathname()
+  const reduceMotion = useReducedMotion()
   const [isOpen, setIsOpen] = useState(false)
-  const [, setScrolled] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [hidden, setHidden] = useState(false)
   const [expandedSection, setExpandedSection] = useState<string | null>(null)
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
+  const lastScrollY = useRef(0)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16)
+    const onScroll = () => {
+      const y = window.scrollY
+      setScrolled(y > 16)
+
+      // Retract on a deliberate scroll down past the hero, return on scroll up.
+      const delta = y - lastScrollY.current
+      if (Math.abs(delta) > 6) {
+        setHidden(delta > 0 && y > 220)
+        lastScrollY.current = y
+      }
+    }
     onScroll()
+    lastScrollY.current = window.scrollY
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  // Never hide the bar while a menu is open under it.
+  const isRetracted = hidden && !isOpen && !activeMenu
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : ''
@@ -50,11 +68,14 @@ export function SiteNavbar({ siteContent }: { siteContent: SiteContent }) {
   return (
     <motion.header
       initial={false}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+      animate={{ y: reduceMotion || !isRetracted ? 0 : '-100%', opacity: 1 }}
+      transition={{ duration: reduceMotion ? 0 : 0.4, ease: [0.22, 1, 0.36, 1] }}
       className={cn(
         'sticky top-0 z-50 w-full transition-[background-color,box-shadow] duration-300',
-        'border-b border-content-border/60 bg-background/95 shadow-[0_14px_40px_rgba(27,28,25,0.08)] backdrop-blur-2xl'
+        'border-b border-content-border/60 bg-background/95 backdrop-blur-2xl',
+        scrolled
+          ? 'shadow-[0_14px_40px_rgba(27,28,25,0.08)]'
+          : 'shadow-none',
       )}
       onMouseLeave={() => setActiveMenu(null)}
     >
@@ -117,24 +138,21 @@ export function SiteNavbar({ siteContent }: { siteContent: SiteContent }) {
           </ul>
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="hidden items-center gap-4 lg:flex">
           <Button
             asChild
             variant="outline"
-            size="sm"
-            className="rounded-full font-body font-semibold tracking-[0.08em]"
+            className="h-10 rounded-md border-foreground/20 px-5 font-body text-xs font-bold uppercase tracking-wider text-foreground hover:bg-foreground/5 hover:text-foreground"
           >
-            <Link
-              href={`https://wa.me/${siteContent.whatsapp.replace(/\D/g, '')}`}
-              target="_blank"
-              rel="noreferrer"
-              className="gap-2"
-            >
-              <MessageCircle className="size-4" />
-              WhatsApp
+            <Link href="/login" className="flex items-center gap-2">
+              <User className="size-4" />
+              Sign In
             </Link>
           </Button>
-          <Button asChild size="sm" className="rounded-full px-5 font-body font-semibold tracking-[0.08em]">
+          <Button
+            asChild
+            className="h-10 rounded-md bg-primary-deep px-6 font-body text-xs font-bold uppercase tracking-wider text-white hover:bg-primary-dark"
+          >
             <Link href={siteContent.header?.cta_button_link || '/rooms'}>
               {siteContent.header?.cta_button_text || 'Book Now'}
             </Link>
@@ -303,20 +321,19 @@ export function SiteNavbar({ siteContent }: { siteContent: SiteContent }) {
               </div>
               
               <div className="mt-2 flex flex-col gap-3">
-                <Button asChild size="lg" className="w-full rounded-full text-base font-semibold tracking-wide uppercase h-14 bg-primary hover:bg-primary-dark font-body">
+                <Button asChild size="lg" className="w-full rounded-md text-base font-semibold tracking-wide uppercase h-14 bg-primary hover:bg-primary-dark font-body">
                   <Link href={siteContent.header?.cta_button_link || '/rooms'} onClick={() => setIsOpen(false)}>
                     {siteContent.header?.cta_button_text || 'Book Your Stay'}
                   </Link>
                 </Button>
-                <Button asChild variant="outline" size="lg" className="w-full justify-center rounded-full text-[13px] font-semibold tracking-wide uppercase h-14 border-primary/20 hover:bg-primary-50/40 font-body">
+                <Button asChild variant="outline" size="lg" className="w-full justify-center rounded-md text-[13px] font-semibold tracking-wide uppercase h-14 border-primary/20 hover:bg-primary-50/40 font-body">
                   <Link
-                    href={`https://wa.me/${siteContent.whatsapp.replace(/\D/g, '')}`}
-                    target="_blank"
-                    rel="noreferrer"
+                    href="/login"
+                    onClick={() => setIsOpen(false)}
                     className="gap-2 text-primary-deep"
                   >
-                    <MessageCircle className="size-4" />
-                    WhatsApp Concierge
+                    <User className="size-4" />
+                    Sign In
                   </Link>
                 </Button>
               </div>

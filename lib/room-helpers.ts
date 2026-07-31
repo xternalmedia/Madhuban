@@ -81,3 +81,17 @@ export function getRoomGalleryImages(room: RoomData, minimum = 4) {
     return image ?? room.images[0]
   })
 }
+
+export function getDeterministicRandom(str: string) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  return Math.abs(hash);
+}
+
+export function getRoomReviewStats(roomName: string) {
+  const rating = (4.5 + (getDeterministicRandom(roomName) % 5) / 10).toFixed(1);
+  const reviewsCount = 50 + (getDeterministicRandom(roomName + 'reviews') % 250);
+  return { rating, reviewsCount };
+}

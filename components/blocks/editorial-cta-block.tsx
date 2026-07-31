@@ -29,7 +29,7 @@ export function EditorialCtaBlock({
 
   return (
     <motion.section
-      initial={false}
+      initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.12 }}
       variants={sectionVariants}

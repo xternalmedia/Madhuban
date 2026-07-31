@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import { Media as Image } from '@/components/shared/media'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { getBlogPostBySlug } from '@/lib/data/blog'

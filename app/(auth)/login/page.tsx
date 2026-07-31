@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
+import { Media as Image } from '@/components/shared/media'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'

@@ -925,7 +925,10 @@ export function RoomBookingWidget({
 
       {/* Mobile sticky bar */}
       {bookingStatus !== 'success' && (
-        <div className="pointer-events-none fixed inset-x-0 bottom-0 z-40 px-3 pb-3 lg:hidden">
+        <div
+          data-floating-obstruction
+          className="pointer-events-none fixed inset-x-0 bottom-0 z-40 px-3 pb-3 lg:hidden"
+        >
           <div className="pointer-events-auto rounded-card-inner border border-card-accent/80 bg-warm-cream/95 p-3 shadow-[0_24px_55px_rgba(53,102,9,0.14)] backdrop-blur">
             <div className="flex items-center justify-between gap-4">
               <div>
@@ -955,7 +958,10 @@ export function RoomBookingWidget({
 
       {/* Mobile success card */}
       {bookingStatus === 'success' && bookingResult && (
-        <div className="fixed inset-x-0 bottom-0 z-40 px-3 pb-3 lg:hidden">
+        <div
+          data-floating-obstruction
+          className="fixed inset-x-0 bottom-0 z-40 px-3 pb-3 lg:hidden"
+        >
           <BookingCard {...sharedProps} className="shadow-[0_24px_55px_rgba(53,102,9,0.14)]" />
         </div>
       )}

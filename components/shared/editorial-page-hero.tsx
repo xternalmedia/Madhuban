@@ -1,7 +1,7 @@
 'use client'
 
 import type { ReactNode } from 'react'
-import Image from 'next/image'
+import { Media as Image } from '@/components/shared/media'
 import { motion, useReducedMotion } from 'framer-motion'
 
 import type { RouteHero } from '@/lib/page-content'
@@ -28,7 +28,7 @@ export function EditorialPageHero({
 
   return (
     <motion.section
-      initial={false}
+      initial="hidden"
       animate="show"
       variants={sectionVariants}
       className={cn(
@@ -38,14 +38,35 @@ export function EditorialPageHero({
       )}
     >
       <div className="absolute inset-0">
-        <Image
-          src={imageOverride || hero.image}
-          alt={imageAlt ?? hero.title}
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
+        {hero.mobileImage ? (
+          <>
+            <Image
+              src={imageOverride || hero.image}
+              alt={imageAlt ?? hero.title}
+              fill
+              priority
+              sizes="100vw"
+              className="hidden sm:block object-cover"
+            />
+            <Image
+              src={imageOverride || hero.mobileImage}
+              alt={imageAlt ?? hero.title}
+              fill
+              priority
+              sizes="100vw"
+              className="sm:hidden block object-cover"
+            />
+          </>
+        ) : (
+          <Image
+            src={imageOverride || hero.image}
+            alt={imageAlt ?? hero.title}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+        )}
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(16,20,14,0.58),rgba(16,20,14,0.34)_42%,rgba(16,20,14,0.74))]" />
       </div>
 

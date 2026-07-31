@@ -1,6 +1,6 @@
 'use client'
 
-import Image from 'next/image'
+import { Media as Image } from '@/components/shared/media'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Save, ArrowLeft } from 'lucide-react'

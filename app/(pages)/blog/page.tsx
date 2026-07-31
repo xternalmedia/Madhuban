@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import { Media as Image } from '@/components/shared/media'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getPublishedBlogPosts, getCategories, getTags } from '@/lib/data/blog'
