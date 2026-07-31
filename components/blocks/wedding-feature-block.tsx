@@ -1,6 +1,6 @@
 'use client'
 
-import Image from 'next/image'
+import { Media as Image } from '@/components/shared/media'
 import Link from 'next/link'
 import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
@@ -66,7 +66,7 @@ export function WeddingFeatureBlock(props: WeddingFeatureBlockProps) {
 
   return (
     <motion.section
-      initial={false}
+      initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.2 }}
       variants={sectionVariants}
@@ -100,7 +100,7 @@ export function WeddingFeatureBlock(props: WeddingFeatureBlockProps) {
           </motion.p>
           <motion.h2
             variants={itemVariants}
-            className="mt-4 text-4xl italic leading-tight text-foreground sm:text-5xl"
+            className="mt-4 text-[2.5rem] italic leading-[1.1] tracking-wide text-foreground sm:text-5xl"
           >
             {title}
           </motion.h2>

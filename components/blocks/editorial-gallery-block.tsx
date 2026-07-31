@@ -1,6 +1,6 @@
 'use client'
 
-import Image from 'next/image'
+import { Media as Image } from '@/components/shared/media'
 import { motion, useReducedMotion } from 'framer-motion'
 
 import { createEditorialMotion } from '@/lib/motion'
@@ -36,7 +36,7 @@ export function EditorialGalleryBlock({
 
   return (
     <motion.section
-      initial={false}
+      initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.12 }}
       variants={sectionVariants}

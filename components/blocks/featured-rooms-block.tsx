@@ -1,18 +1,23 @@
 'use client'
 
-import Image from 'next/image'
+import * as React from 'react'
+import { Media as Image } from '@/components/shared/media'
 import Link from 'next/link'
 import { motion, useReducedMotion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { SectionHeading } from '@/components/shared/section-heading'
 import type { RoomData } from '@/lib/types'
+import { RoomCard } from '@/components/rooms/room-card'
+import { cn } from '@/lib/utils'
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  useCarousel
 } from "@/components/ui/carousel"
+import { Star } from 'lucide-react'
 
 function formatIndianCurrency(value: number) {
   return new Intl.NumberFormat('en-IN', {
@@ -31,6 +36,78 @@ type FeaturedRoomsBlockProps = {
 }
 
 const easing = [0.22, 1, 0.36, 1] as const
+
+function CarouselDots() {
+  const { api } = useCarousel()
+  const [selectedIndex, setSelectedIndex] = React.useState(0)
+  const [scrollSnaps, setScrollSnaps] = React.useState<number[]>([])
+
+  React.useEffect(() => {
+    if (!api) return
+    setScrollSnaps(api.scrollSnapList())
+    setSelectedIndex(api.selectedScrollSnap())
+    const onSelect = () => {
+      setSelectedIndex(api.selectedScrollSnap())
+    }
+    api.on("select", onSelect)
+    api.on("reInit", onSelect)
+    return () => {
+      api.off("select", onSelect)
+      api.off("reInit", onSelect)
+    }
+  }, [api])
+
+  if (scrollSnaps.length <= 1) return null
+
+  return (
+    <div className="flex md:hidden justify-center gap-2 mt-8">
+      {scrollSnaps.map((_, index) => (
+        <button
+          key={index}
+          className={cn(
+            "h-2 rounded-full transition-all duration-300",
+            index === selectedIndex ? "w-6 bg-primary" : "w-2 bg-primary/20"
+          )}
+          onClick={() => api?.scrollTo(index)}
+          aria-label={`Go to slide ${index + 1}`}
+        />
+      ))}
+    </div>
+  )
+}
+
+function RoomCarouselItem({ room, index, itemVariants }: { room: RoomData; index: number; itemVariants: any }) {
+  const { api } = useCarousel()
+  const [isActive, setIsActive] = React.useState(index === 0)
+
+  React.useEffect(() => {
+    if (!api) return
+    const onSelect = () => setIsActive(api.selectedScrollSnap() === index)
+    onSelect()
+    api.on("select", onSelect)
+    api.on("reInit", onSelect)
+    return () => {
+      api.off("select", onSelect)
+      api.off("reInit", onSelect)
+    }
+  }, [api, index])
+
+  return (
+    <CarouselItem className="pl-4 sm:pl-6 basis-[92%] sm:basis-[85%] md:basis-1/3">
+      <motion.div
+        variants={itemVariants}
+        className={cn(
+          "h-full transition-all duration-200 ease-out flex",
+          isActive
+            ? "scale-100 opacity-100"
+            : "scale-[0.97] opacity-90 md:scale-100 md:opacity-100"
+        )}
+      >
+        <RoomCard room={room} className="h-full flex-grow" />
+      </motion.div>
+    </CarouselItem>
+  )
+}
 
 export function FeaturedRoomsBlock({ eyebrow, title, description, featuredRooms }: FeaturedRoomsBlockProps) {
   const reduceMotion = useReducedMotion()
@@ -75,7 +152,7 @@ export function FeaturedRoomsBlock({ eyebrow, title, description, featuredRooms 
 
   return (
     <motion.section
-      initial={false}
+      initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.2 }}
       variants={sectionVariants}
@@ -92,58 +169,21 @@ export function FeaturedRoomsBlock({ eyebrow, title, description, featuredRooms 
           <Carousel
             opts={{
               align: "start",
+              containScroll: "trimSnaps",
             }}
             className="w-full relative"
           >
-            <CarouselContent className="-ml-4 sm:-ml-6">
+            <CarouselContent className="-ml-4 sm:-ml-6 py-4">
               {rooms.map((room, roomIndex) => (
-                <CarouselItem key={room.slug || roomIndex} className="pl-4 sm:pl-6 basis-full md:basis-1/3">
-                  <motion.article
-                    variants={itemVariants}
-                    className="h-full overflow-hidden rounded-card border border-primary/10 bg-[#fbfdf8] shadow-[0_22px_55px_rgba(27,28,25,0.06)]"
-                  >
-                    <div className="relative aspect-[4/3] overflow-hidden">
-                      <Image
-                        src={room.images[0] || 'https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=800&q=80'}
-                        alt={room.name}
-                        fill
-                        sizes="(min-width: 1024px) 30vw, 100vw"
-                        className="object-cover transition-transform duration-700 hover:scale-105"
-                      />
-                    </div>
-                    <div className="p-6 sm:p-7 flex flex-col justify-between h-[calc(100%-75%)]">
-                      <div>
-                        <p className="text-xs font-semibold uppercase tracking-label text-gold">
-                          {room.type}
-                        </p>
-                        <h3 className="mt-3 text-3xl italic text-foreground">
-                          {room.name}
-                        </h3>
-                        <p className="text-foreground/70 mt-4 text-sm leading-7 line-clamp-2">
-                          {room.description}
-                        </p>
-                      </div>
-                      <div className="mt-6 flex items-center justify-between gap-4">
-                        <div>
-                          <p className="text-xl font-semibold text-foreground">
-                            {formatIndianCurrency(room.price_per_night)}
-                          </p>
-                          <p className="mt-1 text-sm text-foreground/55">
-                            Sleeps {room.capacity} guests
-                          </p>
-                        </div>
-                        <Button asChild className="rounded-full px-5 font-body">
-                          <Link href={`/rooms/${room.slug}`}>Book Now</Link>
-                        </Button>
-                      </div>
-                    </div>
-                  </motion.article>
-                </CarouselItem>
+                <RoomCarouselItem key={room.slug || roomIndex} room={room} index={roomIndex} itemVariants={itemVariants} />
               ))}
             </CarouselContent>
-            <div className="mt-8 flex items-center justify-end gap-3">
-              <CarouselPrevious className="static translate-y-0 translate-x-0 h-11 w-11 border-primary/20 bg-transparent text-primary hover:bg-primary/5 hover:text-primary-dark" />
-              <CarouselNext className="static translate-y-0 translate-x-0 h-11 w-11 border-primary/20 bg-transparent text-primary hover:bg-primary/5 hover:text-primary-dark" />
+            
+            <CarouselDots />
+
+            <div className="hidden md:flex mt-8 items-center justify-end gap-3">
+              <CarouselPrevious className="static translate-y-0 translate-x-0 h-12 w-12 border-primary/20 bg-transparent text-primary hover:bg-primary/5 hover:text-primary-dark" />
+              <CarouselNext className="static translate-y-0 translate-x-0 h-12 w-12 border-primary/20 bg-transparent text-primary hover:bg-primary/5 hover:text-primary-dark" />
             </div>
           </Carousel>
         </motion.div>

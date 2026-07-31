@@ -80,7 +80,7 @@ export function HeroBookingBar() {
       transition={{ duration: 0.7, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
       className="relative z-20 mx-auto w-full max-w-3xl"
     >
-      <div className="overflow-hidden rounded-2xl border border-white/20 bg-white/95 shadow-[0_20px_60px_rgba(0,0,0,0.18)] backdrop-blur-xl sm:rounded-full">
+      <div className="overflow-hidden rounded-2xl border border-white/20 bg-white/95 shadow-[0_24px_70px_rgba(0,0,0,0.25)] backdrop-blur-xl sm:rounded-full">
         {/* Desktop: Horizontal row */}
         <div className="hidden items-center sm:flex">
           {/* Check-in */}
@@ -175,7 +175,7 @@ export function HeroBookingBar() {
         <div className="flex flex-col sm:hidden">
           <div className="grid grid-cols-2 border-b border-content-border/60">
             {/* Check-in */}
-            <label className="group relative flex cursor-pointer items-start gap-2.5 border-r border-content-border/60 px-4 py-3.5 transition-colors focus-within:bg-primary-50/40">
+            <label className="group relative flex cursor-pointer items-start gap-2.5 border-r border-content-border/60 px-4 py-3.5 transition-colors focus-within:bg-primary-50/40 active:bg-primary-50/60">
               <CalendarDays className="mt-0.5 size-4 shrink-0 text-primary-deep" />
               <div className="min-w-0 flex-1 flex-col">
                 <span className="block text-[10px] font-semibold uppercase tracking-label text-foreground/50">
@@ -197,7 +197,7 @@ export function HeroBookingBar() {
             </label>
 
             {/* Check-out */}
-            <label className="group relative flex cursor-pointer items-start gap-2.5 px-4 py-3.5 transition-colors focus-within:bg-primary-50/40">
+            <label className="group relative flex cursor-pointer items-start gap-2.5 px-4 py-3.5 transition-colors focus-within:bg-primary-50/40 active:bg-primary-50/60">
               <CalendarDays className="mt-0.5 size-4 shrink-0 text-primary-deep" />
               <div className="min-w-0 flex-1 flex-col">
                 <span className="block text-[10px] font-semibold uppercase tracking-label text-foreground/50">
@@ -220,7 +220,7 @@ export function HeroBookingBar() {
           </div>
 
           {/* Guests */}
-          <label className="group relative flex cursor-pointer items-center gap-3 px-5 py-3 transition-colors focus-within:bg-primary-50/40">
+          <label className="group relative flex cursor-pointer items-center gap-3 px-5 py-3 transition-colors focus-within:bg-primary-50/40 active:bg-primary-50/60">
             <Users className="size-4 shrink-0 text-primary-deep" />
             <div className="min-w-0 flex-1 flex-col">
               <span className="block text-[10px] font-semibold uppercase tracking-label text-foreground/50">

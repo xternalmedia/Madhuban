@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 
-import Image from 'next/image'
+import { Media as Image } from '@/components/shared/media'
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Search, Upload, Image as ImageIcon, Trash2, Copy, Check, Folder, FileText, Video, Filter, Grid, List, X } from 'lucide-react'

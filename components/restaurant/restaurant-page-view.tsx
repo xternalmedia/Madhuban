@@ -32,7 +32,7 @@ export function RestaurantPageView({ siteContent: initialSiteContent, pageData: 
       />
 
       <motion.section
-        initial={false}
+        initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.1 }}
         variants={sectionVariants}

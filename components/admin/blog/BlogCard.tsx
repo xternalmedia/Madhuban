@@ -1,6 +1,6 @@
 'use client'
 
-import Image from 'next/image'
+import { Media as Image } from '@/components/shared/media'
 import Link from 'next/link'
 import { FileText, Eye, Clock } from 'lucide-react'
 import { StatusBadge } from '@/components/admin/shared/status-badge'

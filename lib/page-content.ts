@@ -11,6 +11,7 @@ export type RouteHero = {
   title: string
   subtitle: string
   image: string
+  mobileImage?: string
   overlayWord?: string
   chip?: string
 }
@@ -66,6 +67,7 @@ export type Service = {
   icon: string
   title: string
   description: string
+  image?: string
 }
 
 export type WeddingFeaturePoint = {
@@ -131,36 +133,42 @@ export const services: Service[] = [
     title: 'Hotel',
     description:
       'Comfortable rooms for calm stays, family visits, and wedding guests.',
+    image: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=600&q=80',
   },
   {
     icon: 'PartyPopper',
     title: 'Banquet',
     description:
       'A flexible celebration venue for receptions, social events, and gatherings.',
+    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80',
   },
   {
     icon: 'ConciergeBell',
     title: 'Restaurant',
     description:
       'Indoor and outdoor dining with a fresh atmosphere and welcoming service.',
+    image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=600&q=80',
   },
   {
     icon: 'Waves',
     title: 'Pool',
     description:
       'A refreshing leisure space that complements relaxed resort stays.',
+    image: 'https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=600&q=80',
   },
   {
     icon: 'CalendarDays',
     title: 'Events',
     description:
       'Birthday parties, corporate meets, small celebrations, and curated functions.',
+    image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80',
   },
   {
     icon: 'UtensilsCrossed',
     title: 'Catering',
     description:
       'Festive dining support for weddings, private gatherings, and hosted events.',
+    image: 'https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=600&q=80',
   },
 ]
 
@@ -191,6 +199,11 @@ export const weddingFeature: WeddingFeature = {
       icon: 'Sparkles',
       label: 'Decoration',
       value: 'Elegant decor styling with event support',
+    },
+    {
+      icon: 'CalendarDays',
+      label: 'Booking',
+      value: 'Recommended 6+ months in advance',
     },
   ],
 }

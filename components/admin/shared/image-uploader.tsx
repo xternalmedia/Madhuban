@@ -1,6 +1,6 @@
 'use client'
 
-import Image from 'next/image'
+import { Media as Image } from '@/components/shared/media'
 import { useState } from 'react'
 import { Upload, X, Image as ImageIcon, GripVertical } from 'lucide-react'
 import toast from 'react-hot-toast'

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
+import { Media as Image } from '@/components/shared/media'
 import Link from 'next/link'
 import { motion, useReducedMotion } from 'framer-motion'
 import { BedDouble, ChevronRight, Ruler, Users, Star, Trees, Phone, ChevronLeft, MessageCircle } from 'lucide-react'
@@ -89,7 +89,7 @@ export function RoomDetailPageView({
       <div className="absolute inset-x-0 top-0 -z-10 h-[34rem] bg-[radial-gradient(circle_at_top,rgba(179,216,145,0.3),transparent_54%),linear-gradient(180deg,#f3f0e6_0%,#f5f9f0_100%)]" />
 
       <motion.section
-        initial={false}
+        initial="hidden"
         animate="show"
         variants={sectionVariants}
         className="mx-auto max-w-7xl px-4 pb-12 pt-32 sm:px-6 lg:px-8"
@@ -380,7 +380,7 @@ export function RoomDetailPageView({
 
       {/* Related Rooms */}
       <motion.section
-        initial={false}
+        initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.15 }}
         variants={sectionVariants}

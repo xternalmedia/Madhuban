@@ -112,7 +112,7 @@ export function ContactFormBlock({
 
   return (
     <motion.section
-      initial={false}
+      initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.18 }}
       variants={sectionVariants}

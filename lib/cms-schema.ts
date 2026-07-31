@@ -46,6 +46,7 @@ export const BLOCKS_REGISTRY: Record<string, BlockDef> = {
     label: 'Hero Section',
     fields: [
       { field: 'image', label: 'Background Image', type: 'image' },
+      { field: 'mobile_image', label: 'Mobile Background Image', type: 'image' },
       { field: 'heading', label: 'Heading', type: 'text' },
       { field: 'subtext', label: 'Subtext', type: 'richtext' },
       { field: 'cta_text', label: 'CTA Button Text', type: 'text' },
@@ -207,6 +208,7 @@ export const BLOCKS_REGISTRY: Record<string, BlockDef> = {
       { field: 'title', label: 'Title', type: 'text' },
       { field: 'subtitle', label: 'Subtitle', type: 'textarea' },
       { field: 'image', label: 'Background Image', type: 'image' },
+      { field: 'mobile_image', label: 'Mobile Background Image', type: 'image' },
       { field: 'overlayWord', label: 'Background Text', type: 'text' },
       { field: 'chip', label: 'Badge/Chip', type: 'text' },
       { field: 'ctaText', label: 'CTA Text', type: 'text' },

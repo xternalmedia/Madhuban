@@ -16,6 +16,7 @@ type ServiceItem = {
   title: string
   description: string
   icon: string
+  image?: string
 }
 
 type CoreServicesBlockProps = {
@@ -63,7 +64,7 @@ export function CoreServicesBlock({ eyebrow, title, description, items }: CoreSe
 
   return (
     <motion.section
-      initial={false}
+      initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.2 }}
       variants={sectionVariants}
@@ -88,18 +89,29 @@ export function CoreServicesBlock({ eyebrow, title, description, items }: CoreSe
                 <CarouselItem key={service.title} className="pl-4 sm:pl-6 basis-full md:basis-1/3">
                   <motion.article
                     variants={itemVariants}
-                    className="h-full rounded-card border border-white/70 bg-white/90 p-6 shadow-[0_18px_50px_rgba(46,125,50,0.08)]"
+                    className="h-full overflow-hidden rounded-card border border-white/70 bg-white/90 shadow-[0_18px_50px_rgba(46,125,50,0.08)]"
                   >
-                    <div className="flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary-dark">
-                      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                      <SiteIcon icon={service.icon as any} className="size-6" />
+                    {service.image && (
+                      <div className="relative h-40 w-full overflow-hidden">
+                        <img
+                          src={service.image}
+                          alt={service.title}
+                          className="h-full w-full object-cover"
+                        />
+                      </div>
+                    )}
+                    <div className="p-6">
+                      <div className="flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary-dark">
+                        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                        <SiteIcon icon={service.icon as any} className="size-6" />
+                      </div>
+                      <h3 className="mt-5 text-2xl italic text-foreground">
+                        {service.title}
+                      </h3>
+                      <p className="text-foreground/70 mt-3 text-sm leading-7">
+                        {service.description}
+                      </p>
                     </div>
-                    <h3 className="mt-5 text-2xl italic text-foreground">
-                      {service.title}
-                    </h3>
-                    <p className="text-foreground/70 mt-3 text-sm leading-7">
-                      {service.description}
-                    </p>
                   </motion.article>
                 </CarouselItem>
               ))}
